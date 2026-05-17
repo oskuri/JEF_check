@@ -2,13 +2,32 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>馬術データ照合システム</title>
+    <title>日馬連登録データ照合システム</title>
     <style>
         body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; background-color: #f4f7f9; padding: 20px; font-size: 13px; color: #444; }
         .container { max-width: 1600px; margin: auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
         
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        h1 { font-size: 22px; color: #1a202c; border-left: 6px solid #0070f3; padding-left: 15px; margin: 0; }
+        h1 { font-size: 24px; color: #1a202c; border-left: 6px solid #0070f3; padding-left: 15px; margin: 0 0 20px 0; }
+        
+        .description-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        .description-box p { margin: 0; font-size: 13px; }
+        .description-box ul { margin: 10px 0 0 20px; padding: 0; }
+
+        /* セクションヘッダー：タイトルとボタンを横並びにする */
+        .section-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; /* これで高さを中央に揃える */
+            margin-bottom: 15px; 
+        }
         h2 { font-size: 16px; color: #2d3748; margin: 0; }
 
         .table-wrapper { max-height: 400px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 20px; }
@@ -20,7 +39,6 @@
         .editable { background: #fff; outline: none; cursor: text; border-radius: 4px; transition: background-color 0.1s ease; }
         .editable:focus { background: #f0f7ff; box-shadow: inset 0 0 0 2px #0070f3; }
         
-        /* モダンなフェードアウト強調エフェクト */
         @keyframes fade-out {
             0% { background-color: #63b3ed; color: white; }
             100% { background-color: transparent; }
@@ -28,9 +46,7 @@
         .update-highlight { animation: fade-out 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-radius: 4px; }
 
         .diff-highlight { background-color: #fff5f5 !important; color: #e53e3e; font-weight: bold; }
-        .match-highlight { background-color: #f0fff4 !important; color: #2f855a; }
 
-        /* ボタンデザイン */
         .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; transition: all 0.2s ease; }
         .btn-primary { background: #0070f3; color: white; box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2); }
         .btn-success { background: #38a169; color: white; box-shadow: 0 4px 12px rgba(56, 161, 105, 0.2); }
@@ -40,11 +56,9 @@
         
         .btn-apply { padding: 4px 12px; background: #3182ce; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 11px; margin-left: 10px; }
 
-        /* コントロールエリアのレイアウト */
         .controls { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
         .progress-info { display: flex; align-items: center; gap: 15px; }
 
-        /* ポップなバッジ表示（日本語版） */
         .status-badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 800; text-align: center; min-width: 70px; }
         .status-ok { background-color: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
         .status-ng { background-color: #feebc8; color: #744210; border: 1px solid #fbd38d; }
@@ -61,13 +75,21 @@
 </head>
 <body>
 <div class="container">
-    <div class="section-header">
-        <h1>馬術データ照合システム</h1>
-        <button class="btn btn-danger" onclick="location.reload()">全てクリア</button>
+    <h1>日馬連登録データ照合システム</h1>
+
+    <div class="description-box">
+        <p><strong>【使い方】</strong></p>
+        <ul>
+            <li>出番表のエクセル等から「選手名・会員番号・馬名・登録番号」の4列をコピーし、入力エリアに貼り付けてください。</li>
+            <li>「一括照合を開始」を押すと、日本馬術連盟の登録情報から最新情報を取得し、入力データと比較します。</li>
+            <li>入力データと日馬連登録情報に不一致がある場合は、入力データの名前・番号を元にした修正候補が表示されます。「反映」を押すと入力データを直接修正します。</li>
+            <li>最終的な照合結果は「Excel用にコピー」ボタンから取得し、Excelに貼り付けて下さい。</li>
+        </ul>
     </div>
 
-    <div class="section-header" style="margin-top: 20px;">
-        <h2>1. 入力エリア (Excel貼り付け対応)</h2>
+    <div class="section-header">
+        <h2>入力エリア</h2>
+        <button class="btn btn-danger" onclick="location.reload()">全てクリア</button>
     </div>
     
     <div class="table-wrapper">
@@ -87,7 +109,7 @@
     </div>
 
     <div class="section-header">
-        <h2>2. 照合結果</h2>
+        <h2>照合結果</h2>
         <div>
             <span id="copyFeedback">コピー完了！</span>
             <button class="btn btn-success" onclick="copyCleanData()">Excel用にコピー</button>
@@ -99,8 +121,8 @@
             <thead>
                 <tr>
                     <th style="width:40px;">No</th>
-                    <th>DB選手名</th><th>DB番号</th>
-                    <th>DB馬名</th><th>DB番号</th>
+                    <th>選手名</th><th>会員番号</th>
+                    <th>馬匹名</th><th>登録番号</th>
                     <th style="width:100px; text-align:center;">状態</th>
                     <th style="width:550px;">修正候補</th>
                 </tr>
@@ -111,10 +133,10 @@
 </div>
 
 <script>
+    // JavaScript部分は既存のものをそのまま使用してください
     const inputTable = document.getElementById('inputTable');
     const resultTable = document.getElementById('resultTable');
 
-    // 日本語表示のバッジ
     const badgeOK = '<span class="status-badge status-ok">一致</span>';
     const badgeNG = '<span class="status-badge status-ng">不一致</span>';
     const badgeRun = '<span class="status-badge status-run">照合中...</span>';
