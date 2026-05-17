@@ -71,11 +71,52 @@
         .ans-content { font-weight: bold; color: #2d3748; }
 
         #copyFeedback { color: #38a169; font-weight: bold; margin-right: 10px; display: none; }
+        footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #0070f3;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .disclaimer-text {
+            font-size: 11px;
+            color: #a0aec0;
+            margin-top: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+        .lead-text {
+        font-size: 15px;
+        color: #2d3748;
+        line-height: 1.6;
+        margin: 20px 5px 25px 5px; /* タイトルと使い方の間の余白 */
+    }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>日馬連登録データ照合システム</h1>
+
+    <div class="lead-text">
+        本システムは、お手元の出番表データと日本馬術連盟（JEF）の登録情報を突き合わせ、選手・馬匹の名称や会員番号や登録番号に間違いがないか一括でチェックするためのツールです。<br>
+        馬術競技会の準備等にお使いいただけます。<br>
+        <strong>免責事項：</strong> 本ツールは登録情報の照合を支援するものであり、内容の正確性を保証するものではありません。また、日本馬術連盟のシステム改修等により、利用できなくなる可能性があります。
+    </div>
 
     <div class="description-box">
         <p><strong>【使い方】</strong></p>
@@ -131,6 +172,20 @@
         </table>
     </div>
 </div>
+
+<footer>
+        <div class="footer-links">
+            <a href="https://github.com/oskuri/JEF_check" target="_blank" rel="noopener noreferrer">
+                View on GitHub
+            </a>
+        </div>
+        <div>
+            &copy; 2026 Osamu Kurihara. All Rights Reserved.
+        </div>
+        <p class="disclaimer-text">
+            本アプリは日本馬術連盟(JEF)のシステムを照合に利用しています。入力されたデータはサーバーに保存されず、ブラウザ上での照合処理のみに使用されます。
+        </p>
+    </footer>
 
 <script>
     // JavaScript部分は既存のものをそのまま使用してください
